@@ -1,29 +1,34 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from PyQt5.uic import loadUi
 
 class LoginDialog(QDialog):
     def __init__(self):
-        super(LoginDialog, self).__init__()
+        super().__init__()
         loadUi("user_interface/login.ui", self)  # the location of login window in Qt Designer
-        self.student_login_button.clicked.connect(self.login_as_student)
-        self.company_login_button.cliked.connect(self.login_as_company)
+        self.setFixedSize(self.size())
 
-    def login_as_student(self):
-        self.handel_login('student')
+        self.student_login_button.clicked.connect(self.login_as_student)
+        self.company_login_button.clicked.connect(self.login_as_company)
+        self.password_input.setEchoMode(QLineEdit.Password) # to make the password hidden
+    
+    def login_as_student(self): # method 1: if the user is student
+        self.handle_login('student')
         print('student')
     
-    def login_as_company(self):
-        self.handel_login('company')
+    def login_as_company(self): # method 2: if the user is company
+        self.handle_login('company')
         print('company')
 
-    def handle_login(self , user_typ):
+    def handle_login(self , user_typ): # method 3: to save info in the db
         email = self.email_input.text()
         password = self.password_input.text()
+        print(email,password)
         
-        #confirming that the user does not forgot to type the email and password
+        #confirming that the user does not forgot to type in the email and password
         if not email or not password:
-            QMessageBox.warning("Error! you forgot to type the email ro the password")
+            QMessageBox.warning(self,"Error!"," you may forgit to type in the email ro the password")
+
 
 
 

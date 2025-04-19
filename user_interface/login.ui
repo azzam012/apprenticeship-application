@@ -57,54 +57,6 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QTextEdit" name="password_input">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>190</y>
-     <width>241</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your password here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QTextEdit {
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
-    background-color: #fefefe;
-}
-
-
-</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="email_input">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>120</y>
-     <width>241</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your email here&lt;/p&gt;&lt;p&gt;NAME@EXAMPLE.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QTextEdit {
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
-    background-color: #fefefe;
-}
-
-
-</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
@@ -227,6 +179,53 @@
    </property>
    <property name="text">
     <string>Company</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="email_input">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>120</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your email here&lt;/p&gt;&lt;p&gt;NAME@EXAMPLE.com&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    border: 1px solid #aaa;
+    border-radius: 15px;
+    padding: 2px;
+    background-color: #fefefe;
+}
+</string>
+   </property>
+   <property name="inputMask">
+    <string>NNNNNNNNNNNNNNNNNN@NNNNNNNNNNNNNN.com</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="password_input">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>190</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your password here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    border: 1px solid #aaa;
+    border-radius: 15px;
+    padding: 2px;
+    background-color: #fefefe;
+}
+</string>
    </property>
   </widget>
  </widget>
