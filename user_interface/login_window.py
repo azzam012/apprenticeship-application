@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from PyQt5.uic import loadUi
 from student_signup import StudentSignup
-#from company_signup import CompanySignupDialog
+from company_signup import CompanySignup
 
 
 
@@ -11,12 +11,12 @@ class LoginDialog(QDialog):
         super().__init__()
         loadUi("user_interface/login.ui", self)  # the location of login window in Qt Designer
         #self.setFixedSize(self.size())
-        self.showMaximized()
+        #self.showMaximized()
 
         self.login_button.clicked.connect(self.handle_login)
 
         self.student_signup_button.clicked.connect(self.open_student_signup)
-        #self.company_signup_button.clicked.connect(self.open_company_signup)
+        self.company_signup_button.clicked.connect(self.open_company_signup)
         self.password_input.setEchoMode(QLineEdit.Password) # to make the password hidden
     
 
@@ -41,9 +41,9 @@ class LoginDialog(QDialog):
         self.student_signup_window = StudentSignup()
         self.student_signup_window.exec_()
 
-    #def open_company_signup(self):
-        #self.company_signup_window = CompanySignupDialog()
-       # self.company_signup_window.exec_()
+    def open_company_signup(self):
+        self.company_signup_window = CompanySignup()
+        self.company_signup_window.exec_()
 
 
 

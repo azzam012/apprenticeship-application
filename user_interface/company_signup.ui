@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>600</height>
+    <width>700</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>440</x>
      <y>30</y>
      <width>151</width>
      <height>31</height>
@@ -39,8 +39,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>441</width>
-     <height>601</height>
+     <width>291</width>
+     <height>401</height>
     </rect>
    </property>
    <property name="text">
@@ -56,7 +56,7 @@
   <widget class="QLineEdit" name="company_name_input">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>380</x>
      <y>110</y>
      <width>281</width>
      <height>31</height>
@@ -78,8 +78,8 @@
   <widget class="QPushButton" name="signup_button">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>520</y>
+     <x>380</x>
+     <y>310</y>
      <width>281</width>
      <height>31</height>
     </rect>
@@ -109,7 +109,7 @@
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>390</x>
      <y>80</y>
      <width>171</width>
      <height>21</height>
@@ -142,7 +142,7 @@
   <widget class="QLineEdit" name="email_input">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>380</x>
      <y>180</y>
      <width>281</width>
      <height>31</height>
@@ -167,7 +167,7 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>390</x>
      <y>150</y>
      <width>81</width>
      <height>21</height>
@@ -200,16 +200,16 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>70</x>
      <y>150</y>
-     <width>251</width>
-     <height>161</height>
+     <width>141</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Freestyle Script</family>
-     <pointsize>48</pointsize>
+     <pointsize>36</pointsize>
     </font>
    </property>
    <property name="text">
@@ -222,7 +222,7 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>390</x>
      <y>220</y>
      <width>101</width>
      <height>21</height>
@@ -255,7 +255,7 @@
   <widget class="QLineEdit" name="password_input">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>380</x>
      <y>250</y>
      <width>281</width>
      <height>31</height>
@@ -272,171 +272,6 @@
     background-color: #fefefe;
 }
 </string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="company_name_input_2">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>320</y>
-     <width>281</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your password here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
-    background-color: #fefefe;
-}
-</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="company_name_input_3">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>390</y>
-     <width>281</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your password here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
-    background-color: #fefefe;
-}
-</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="company_name_input_4">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>460</y>
-     <width>281</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter your password here&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
-    background-color: #fefefe;
-}
-</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>290</y>
-     <width>201</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Arial</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="accessibleName">
-    <string/>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::NoFrame</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="text">
-    <string>Required Specializations</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::MarkdownText</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>360</y>
-     <width>131</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Arial</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="accessibleName">
-    <string/>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::NoFrame</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="text">
-    <string>Required Skills</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::MarkdownText</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>430</y>
-     <width>161</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Arial</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="accessibleName">
-    <string/>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::NoFrame</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="text">
-    <string>Available Locations</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::MarkdownText</enum>
    </property>
   </widget>
  </widget>

@@ -142,10 +142,11 @@
    <property name="styleSheet">
     <string notr="true">QPushButton {
     border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
+    border-radius: 5px;
+    padding: 0px;
     background-color: #fefefe;
-}</string>
+}
+</string>
    </property>
    <property name="text">
     <string>Student</string>
@@ -172,8 +173,8 @@
    <property name="styleSheet">
     <string notr="true">QPushButton {
     border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
+    border-radius: 5px;
+    padding: 0px;
     background-color: #fefefe;
 }</string>
    </property>
@@ -196,8 +197,8 @@
    <property name="styleSheet">
     <string notr="true">QLineEdit {
     border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
+    border-radius: 5px;
+    padding: 0px;
     background-color: #fefefe;
 }
 </string>
@@ -221,8 +222,8 @@
    <property name="styleSheet">
     <string notr="true">QLineEdit {
     border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
+    border-radius: 5px;
+    padding: 0px;
     background-color: #fefefe;
 }
 </string>
@@ -248,8 +249,8 @@
    <property name="styleSheet">
     <string notr="true">QPushButton {
     border: 1px solid #aaa;
-    border-radius: 15px;
-    padding: 2px;
+    border-radius: 5px;
+    padding: 0px;
     background-color: #fefefe;
 }</string>
    </property>
@@ -292,9 +293,9 @@
   <widget class="QRadioButton" name="student_radio">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>414</x>
      <y>230</y>
-     <width>95</width>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
@@ -305,9 +306,9 @@
   <widget class="QRadioButton" name="company_radio">
    <property name="geometry">
     <rect>
-     <x>510</x>
+     <x>524</x>
      <y>230</y>
-     <width>95</width>
+     <width>81</width>
      <height>20</height>
     </rect>
    </property>

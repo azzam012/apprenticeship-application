@@ -3,13 +3,13 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLineEdit
 from PyQt5.uic import loadUi
-from models.student import add_student  # تأكد أن مسار الاستيراد صحيح
+from models.student import add_student 
 
 class StudentSignup(QDialog):
     def __init__(self):
         super().__init__()
         loadUi("user_interface/student_signup.ui", self)
-        self.showFullScreen()
+        #self.showFullScreen()
 
         self.signup_button.clicked.connect(self.register_student)
         self.password_input.setEchoMode(QLineEdit.Password) # to make the password hidden
@@ -25,7 +25,7 @@ class StudentSignup(QDialog):
         skills = self.skills_input.text()
         locations = self.locations_input.text()
 
-        # تحقق من الحقول الأساسية
+
         if not all([name, student_id, email, password, gpa, mobile, specialization, skills, locations]):
             QMessageBox.warning(self, "Error", "Please fill in all fields")
             return
@@ -43,9 +43,9 @@ class StudentSignup(QDialog):
         except Exception as e:
             QMessageBox.critical(self, "Database Error", str(e))
 
-# للاختبار فقط
+
         if name == "__main__":
             app = QApplication(sys.argv)
             window = StudentSignup()
             window.show()
-            sys.exit(app.exec_())
+            sys.exit(app.exec_()) 
