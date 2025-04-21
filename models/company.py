@@ -1,14 +1,20 @@
-# MC3 USE THIS: add_opening()
-# You can also use: delete_opening(opening_id) or view_openings() for testing
+# MC1 USE THIS: add_opening(), add_company()
+# You can also use: delete_opening(opening_id), view_openings(),
+#                   delete_company(company_id), view_companies() ← for testing only
 
 """
-MC1: Database – Apprenticeship Openings Table
+MC1: Database – Apprenticeship Opening Management
 
-This file connects to the SQLite database and does two main things:
-1. Creates the 'openings' table (if it doesn't exist already)
-2. Provides the function 'add_opening()' for MC3 to insert company data
+This file connects to the SQLite database and handles two main tables:
+1. 'openings'  – stores internship openings posted by companies
+2. 'companies' – stores company account information (name, email, password)
 
-To use: call add_opening(specialization, location, stipend, required_skills)
+✅ For MC3 (logic teammate):
+You can call these functions directly to insert new data:
+- add_opening(specialization, location, stipend, required_skills)
+- add_company(company_name, company_email, company_password)
+
+NOTE: All data is saved in database/apprenticeship
 """
 
 import sqlite3
@@ -27,8 +33,19 @@ CREATE TABLE IF NOT EXISTS openings (
 )
 """)
 
+# Create the 'companies' table if it doesn't exist
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS companies (
+    company_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_name TEXT NOT NULL,
+    company_email TEXT UNIQUE NOT NULL,
+    company_password TEXT NOT NULL
+)
+""")
+
 conn.commit()
 conn.close()
+
 
 
 # FUNCTION MC3 will use to add new openings
@@ -45,6 +62,18 @@ def add_opening(specialization, location, stipend, required_skills):
     conn.commit()
     conn.close()
 
+#FUNCTION to add companies details
+def add_company(company_name, company_email, company_password):
+    conn = sqlite3.connect("database/apprenticeship")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    INSERT INTO companies (company_name, company_email, company_password)
+    VALUES (?, ?, ?)
+    """, (company_name, company_email, company_password))
+
+    conn.commit()
+    conn.close()
 
 # 🧹 Utility functions (for testing only)
 def delete_opening(opening_id):
