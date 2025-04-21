@@ -14,13 +14,13 @@ You can call these functions directly to insert new data:
 - add_opening(specialization, location, stipend, required_skills)
 - add_company(company_name, company_email, company_password)
 
-NOTE: All data is saved in database/apprenticeship
+NOTE: All data is saved in database/apprenticeship.db
 """
 
 import sqlite3
 
-# Create the 'openings' table if it doesn't exist
-conn = sqlite3.connect("database/apprenticeship")
+# Create the 'openings' and 'companies' tables if they don't exist
+conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
 cursor = conn.cursor()
 
 cursor.execute("""
@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS openings (
 )
 """)
 
-# Create the 'companies' table if it doesn't exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS companies (
     company_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,11 +45,9 @@ CREATE TABLE IF NOT EXISTS companies (
 conn.commit()
 conn.close()
 
-
-
-# FUNCTION MC3 will use to add new openings
+# MC3 FUNCTION – Add new internship opening
 def add_opening(specialization, location, stipend, required_skills):
-    conn = sqlite3.connect("database/apprenticeship")
+    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -62,31 +59,48 @@ def add_opening(specialization, location, stipend, required_skills):
     conn.commit()
     conn.close()
 
-#FUNCTION to add companies details
+# MC3 FUNCTION – Add company account
 def add_company(company_name, company_email, company_password):
-    conn = sqlite3.connect("database/apprenticeship")
+    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
     cursor = conn.cursor()
 
     cursor.execute("""
-    INSERT INTO companies (company_name, company_email, company_password)
-    VALUES (?, ?, ?)
+    INSERT INTO companies (
+        company_name, company_email, company_password
+    ) VALUES (?, ?, ?)
     """, (company_name, company_email, company_password))
 
     conn.commit()
     conn.close()
 
-# 🧹 Utility functions (for testing only)
+# 🧹 Utility functions for testing
 def delete_opening(opening_id):
-    conn = sqlite3.connect("database/apprenticeship")
+    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
     cursor = conn.cursor()
     cursor.execute("DELETE FROM openings WHERE opening_id = ?", (opening_id,))
     conn.commit()
     conn.close()
 
 def view_openings():
-    conn = sqlite3.connect("database/apprenticeship")
+    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM openings")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    conn.close()
+
+def delete_company(company_id):
+    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM companies WHERE company_id = ?", (company_id,))
+    conn.commit()
+    conn.close()
+
+def view_companies():
+    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM companies")
     rows = cursor.fetchall()
     for row in rows:
         print(row)
