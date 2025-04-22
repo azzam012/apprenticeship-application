@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QLineEdit
 from PyQt5.uic import loadUi
-from models.company import add_opening
+#from models.company import add_company
 
 class CompanySignup(QDialog):
     def __init__(self):
@@ -23,14 +23,14 @@ class CompanySignup(QDialog):
             QMessageBox.warning(self, "Error", "Please fill in all fields")
             return
         
-        #try:
-            # add_company(company_name, company_email, company_password)
-            #QMessageBox.information(self, "Success", "Company registered successfully")
-            #self.close()
-        #except Exception as e:
-            #QMessageBox.critical(self, "Database Error", str(e))
+#        try:
+ #            add_company(company_name, company_email, company_password)
+  #           QMessageBox.information(self, "Success", "Company registered successfully")
+   #          self.close()
+    #    except Exception as e:
+     #       QMessageBox.critical(self, "Database Error", str(e))
 
-        if company_name == "__main__":
+        if __name__ == "__main__":
             app = QApplication(sys.argv)
             window = CompanySignup()
             window.show()
