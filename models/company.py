@@ -1,38 +1,23 @@
-# MC1 USE THIS: add_opening(), add_company()
-# You can also use: delete_opening(opening_id), view_openings(),
-#                   delete_company(company_id), view_companies() ← for testing only
+# 2. models/company.py (ملف إدارة بيانات الشركات)
 
 """
-MC1: Database – Apprenticeship Opening Management
-
-This file connects to the SQLite database and handles two main tables:
-1. 'openings'  – stores internship openings posted by companies
-2. 'companies' – stores company account information (name, email, password)
-
-✅ For MC3 (logic teammate):
-You can call these functions directly to insert new data:
-- add_opening(specialization, location, stipend, required_skills)
-- add_company(company_name, company_email, company_password)
-
-NOTE: All data is saved in database/apprenticeship.db
+أ. يتأكد من ملف القاعدة ويسويه ديناميكياً
+يحفظ مسار الـ SQLite بحيث يشتغل على أي جهاز
 """
 
+import os
 import sqlite3
 
-# Create the 'openings' and 'companies' tables if they don't exist
-conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
+db_path = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__),
+        '..', 'database', 'apprenticeship.db'
+    )
+)
+conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS openings (
-    opening_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    specialization TEXT NOT NULL,
-    location TEXT NOT NULL,
-    stipend INTEGER NOT NULL CHECK(stipend > 0),
-    required_skills TEXT NOT NULL
-)
-""")
-
+# ب. يتأكد من إنشاء الجدول عند أول تشغيل
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS companies (
     company_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,65 +27,92 @@ CREATE TABLE IF NOT EXISTS companies (
 )
 """)
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS openings (
+    opening_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_id INTEGER NOT NULL,
+    specialization TEXT NOT NULL,
+    location TEXT NOT NULL,
+    stipend INTEGER NOT NULL CHECK(stipend > 0),
+    required_skills TEXT NOT NULL,
+    FOREIGN KEY (company_id) REFERENCES companies(company_id)
+)
+""")
+
 conn.commit()
 conn.close()
 
-# MC3 FUNCTION – Add new internship opening
-def add_opening(specialization, location, stipend, required_skills):
-    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
-    cursor = conn.cursor()
+"""
+ج. يكتب الدوال الأساسية:
+"""
 
+# شركات
+def add_company(company_name, company_email, company_password):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""
+    INSERT INTO companies (company_name, company_email, company_password)
+    VALUES (?, ?, ?)
+    """, (company_name, company_email, company_password))
+    conn.commit()
+    conn.close()
+
+def get_company_info(company_id):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM companies WHERE company_id = ?", (company_id,))
+    result = cursor.fetchone()
+    conn.close()
+    return result
+
+def update_company(company_id, **kwargs):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    updates = ", ".join(f"{key} = ?" for key in kwargs)
+    values = list(kwargs.values()) + [company_id]
+    cursor.execute(f"UPDATE companies SET {updates} WHERE company_id = ?", values)
+    conn.commit()
+    conn.close()
+
+def get_all_companies():
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM companies")
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
+# الفرص
+def add_opening(company_id, specialization, location, stipend, required_skills):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
     cursor.execute("""
     INSERT INTO openings (
-        specialization, location, stipend, required_skills
-    ) VALUES (?, ?, ?, ?)
-    """, (specialization, location, stipend, required_skills))
-
+        company_id, specialization, location, stipend, required_skills
+    ) VALUES (?, ?, ?, ?, ?)
+    """, (company_id, specialization, location, stipend, required_skills))
     conn.commit()
     conn.close()
 
-# MC3 FUNCTION – Add company account
-def add_company(company_name, company_email, company_password):
-    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
+def get_all_openings():
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-
-    cursor.execute("""
-    INSERT INTO companies (
-        company_name, company_email, company_password
-    ) VALUES (?, ?, ?)
-    """, (company_name, company_email, company_password))
-
-    conn.commit()
+    cursor.execute("SELECT * FROM openings")
+    result = cursor.fetchall()
     conn.close()
+    return result
 
-# 🧹 Utility functions for testing
 def delete_opening(opening_id):
-    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("DELETE FROM openings WHERE opening_id = ?", (opening_id,))
     conn.commit()
     conn.close()
 
 def view_openings():
-    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM openings")
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
-    conn.close()
-
-def delete_company(company_id):
-    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM companies WHERE company_id = ?", (company_id,))
-    conn.commit()
-    conn.close()
-
-def view_companies():
-    conn = sqlite3.connect("C:/Users/user/Documents/GitHub/apprenticeship-application/database/apprenticeship.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM companies")
     rows = cursor.fetchall()
     for row in rows:
         print(row)
