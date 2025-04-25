@@ -1,9 +1,6 @@
 # 2. models/company.py (ملف إدارة بيانات الشركات)
 
-"""
-أ. يتأكد من ملف القاعدة ويسويه ديناميكياً
-يحفظ مسار الـ SQLite بحيث يشتغل على أي جهاز
-"""
+# A. Dynamic database path
 
 import os
 import sqlite3
@@ -17,7 +14,7 @@ db_path = os.path.abspath(
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
-# ب. يتأكد من إنشاء الجدول عند أول تشغيل
+# B. Create 'companies' table if it doesn't exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS companies (
     company_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,6 +24,7 @@ CREATE TABLE IF NOT EXISTS companies (
 )
 """)
 
+# C. Create 'openings' table if it doesn't exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS openings (
     opening_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,9 +40,7 @@ CREATE TABLE IF NOT EXISTS openings (
 conn.commit()
 conn.close()
 
-"""
-ج. يكتب الدوال الأساسية:
-"""
+# D. Main company functions
 
 # شركات
 def add_company(company_name, company_email, company_password):
@@ -82,7 +78,7 @@ def get_all_companies():
     conn.close()
     return result
 
-# الفرص
+# E. Main opening functions
 def add_opening(company_id, specialization, location, stipend, required_skills):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
