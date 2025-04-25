@@ -1,9 +1,6 @@
 # 1. models/student.py (ملف إدارة بيانات الطلاب)
 
-"""
-أ. يتأكد من ملف القاعدة ويسويه ديناميكياً
-يحفظ مسار الـ SQLite بحيث يشتغل على أي جهاز
-"""
+# A. Dynamic database path
 
 import os
 import sqlite3
@@ -17,7 +14,7 @@ db_path = os.path.abspath(
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
-# ب. يتأكد من إنشاء الجدول عند أول تشغيل
+# B. Create 'students' table if it doesn't exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS students (
     student_id TEXT PRIMARY KEY,
@@ -33,9 +30,7 @@ CREATE TABLE IF NOT EXISTS students (
 conn.commit()
 conn.close()
 
-"""
-ج. يكتب الدوال الأساسية:
-"""
+# C. Main student functions
 
 def add_student(student_id, name, mobile_number, email, gpa, specialization, preferred_locations, skills):
     conn = sqlite3.connect(db_path)
