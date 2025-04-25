@@ -1,9 +1,6 @@
 # 4. models/applications.py (ملف إدارة الطلبات)
 
-"""
-أ. يتأكد من ملف القاعدة ويسويه ديناميكياً
-يحفظ مسار الـ SQLite بحيث يشتغل على أي جهاز
-"""
+# A. Dynamic database path
 
 import os
 import sqlite3
@@ -17,7 +14,7 @@ db_path = os.path.abspath(
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
-# ب. يتأكد من إنشاء الجدول عند أول تشغيل
+# B. Create 'applications' table if it doesn't exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS applications (
     application_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,11 +27,8 @@ CREATE TABLE IF NOT EXISTS applications (
 conn.commit()
 conn.close()
 
-"""
-ج. يكتب الدوال الأساسية:
-"""
+# C. Main application functions
 
-# دالة لإضافة طلب جديد
 def add_application(student_id, opening_id):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
