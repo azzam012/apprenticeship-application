@@ -21,27 +21,31 @@ CREATE TABLE IF NOT EXISTS students (
     name TEXT NOT NULL,
     mobile_number TEXT NOT NULL,
     email TEXT NOT NULL,
+    password TEXT NOT NULL,
     gpa REAL NOT NULL CHECK(gpa >= 0 AND gpa <= 5),
     specialization TEXT NOT NULL,
     preferred_locations TEXT NOT NULL,
     skills TEXT NOT NULL
 )
 """)
+
 conn.commit()
 conn.close()
 
 # C. Main student functions
 
-def add_student(student_id, name, mobile_number, email, gpa, specialization, preferred_locations, skills):
+def add_student(student_id, name, mobile_number, email, password, gpa, specialization, preferred_locations, skills):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("""
     INSERT INTO students (
-        student_id, name, mobile_number, email, gpa, specialization, preferred_locations, skills
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (student_id, name, mobile_number, email, gpa, specialization, preferred_locations, skills))
+        student_id, name, mobile_number, email, password, gpa, specialization, preferred_locations, skills
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (student_id, name, mobile_number, email, password, gpa, specialization, preferred_locations, skills))
     conn.commit()
     conn.close()
+
+
 
 def get_student_info(student_id):
     conn = sqlite3.connect(db_path)
@@ -67,6 +71,16 @@ def get_all_students():
     result = cursor.fetchall()
     conn.close()
     return result
+
+def get_student_by_email_and_password(email, password):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT student_id FROM students WHERE email = ? AND password = ?", (email, password))
+    result = cursor.fetchone()
+    conn.close()
+    return result
+
+
 
 # if __name__ == "__main__":
 #     add_student("S1001", "Sara Ahmed", "0551234567", "sara@gmail.com", 4.3, "IT", "Riyadh,Jeddah,Dammam", "Python,Excel")

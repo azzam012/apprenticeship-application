@@ -1,13 +1,3 @@
-#import sys
-#from PyQt5.QtWidgets import QApplication
-#from user_interface.login_window import LoginDialog
-
-#if __name__ == "__main__":
- #   app = QApplication(sys.argv)
- #   window = LoginDialog()
- #   window.show()
-  #  sys.exit(app.exec_())
-
 # =====================================
 # Database Setup Section (students, companies, applications)
 # =====================================
@@ -132,7 +122,7 @@ def add_company(company_name, company_email, company_password):
 class StudentSignup(QDialog):
     def __init__(self):
         super().__init__()
-        loadUi("student_signup.ui", self)
+        loadUi("user_interface/student_signup.ui", self)
         self.signup_button.clicked.connect(self.register_student)
         self.password_input.setEchoMode(QLineEdit.Password)
 
@@ -170,7 +160,7 @@ class StudentSignup(QDialog):
 class CompanySignup(QDialog):
     def __init__(self):
         super().__init__()
-        loadUi("company_signup.ui", self)
+        loadUi("user_interface/company_signup.ui", self)
         self.signup_button.clicked.connect(self.register_company)
         self.password_input.setEchoMode(QLineEdit.Password)
 
@@ -196,7 +186,7 @@ class CompanySignup(QDialog):
 class LoginDialog(QDialog):
     def __init__(self):
         super().__init__()
-        loadUi("login.ui", self)
+        loadUi("user_interface/login.ui", self)
 
         self.login_button.clicked.connect(self.handle_login)
         self.student_signup_button.clicked.connect(self.open_student_signup)
@@ -236,7 +226,7 @@ class LoginDialog(QDialog):
 class StudentDashboard(QMainWindow):
     def __init__(self, student_id):
         super().__init__()
-        loadUi("student_dashboard.ui", self)
+        loadUi("user_interface/student_dashboard.ui", self)
 
         self.current_student_id = student_id
         self.student_tabWidget.tabBar().setVisible(False)
@@ -266,8 +256,8 @@ class StudentDashboard(QMainWindow):
 
         if student_info:
             headers = [
-                "Student ID", "Name", "Mobile Number", "Email", "GPA",
-                "Specialization", "Preferred Locations", "Skills"
+                "Student ID", "Name", "Mobile Number", "Email", "Password",
+            "GPA", "Specialization", "Preferred Locations", "Skills"
             ]
 
             self.student_info_table.clear()
@@ -292,7 +282,7 @@ class StudentDashboard(QMainWindow):
 class CompanyDashboard(QMainWindow):
     def __init__(self, company_id=None):
         super().__init__()
-        loadUi("company_dashboard.ui", self)
+        loadUi("user_interface/company_dashboard.ui", self)
 
         self.company_id = company_id
         self.view_info_button.clicked.connect(self.view_company_info)

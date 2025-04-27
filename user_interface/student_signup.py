@@ -35,16 +35,28 @@ class StudentSignup(QDialog):
         except ValueError:
             QMessageBox.warning(self, "Error", "GPA must be a number")
             return
+        print("DEBUG - VALUES SENDING TO DB:")
+        print("student_id:", student_id)
+        print("name:", name)
+        print("mobile:", mobile)
+        print("email:", email)
+        print("password:", password)  # <-- أهم سطر
+        print("gpa:", gpa)
+        print("specialization:", specialization)
+        print("locations:", locations)
+        print("skills:", skills)
 
         try:
-            add_student(student_id, name, mobile, email, gpa, specialization, locations, skills)
+            print("DEBUG → Password entered:", password)
+
+            add_student(student_id, name, mobile, email, password, gpa, specialization, locations, skills)
             QMessageBox.information(self, "Success", "Student registered successfully")
             self.close()
         except Exception as e:
             QMessageBox.critical(self, "Database Error", str(e))
 
 
-        if name == "__main__":
+        if __name__ == "__main__"
             app = QApplication(sys.argv)
             window = StudentSignup()
             window.show()

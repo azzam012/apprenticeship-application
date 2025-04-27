@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>883</width>
-    <height>811</height>
+    <width>996</width>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,12 +23,15 @@ QPushButton:hover {
     background-color: lightcoral;
     color: white;
 }
-</string>
+background-color: rgb(22, 22, 46);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <widget class="QFrame" name="frame_2">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -39,7 +42,7 @@ QPushButton:hover {
        <item>
         <widget class="QTabWidget" name="student_tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -194,7 +197,7 @@ QHeaderView::section {
                         <number>1</number>
                        </property>
                        <attribute name="horizontalHeaderVisible">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </attribute>
                        <attribute name="horizontalHeaderCascadingSectionResizes">
                         <bool>false</bool>
@@ -282,7 +285,7 @@ QHeaderView::section {
                  <attribute name="title">
                   <string>edit info</string>
                  </attribute>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
                    <widget class="QFrame" name="frame_4">
                     <property name="frameShape">
@@ -317,16 +320,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_6">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -335,9 +353,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -371,16 +392,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_10">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -389,9 +425,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -425,16 +464,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_11">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -443,9 +497,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -479,16 +536,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_12">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -497,9 +569,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -533,16 +608,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_7">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -551,9 +641,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -587,16 +680,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_14">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -605,9 +713,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -641,16 +752,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_13">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>700</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -659,9 +785,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -695,16 +824,31 @@ QHeaderView::section {
                         <item>
                          <widget class="QLineEdit" name="lineEdit_15">
                           <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                            <horstretch>0</horstretch>
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                            <horstretch>80</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>800</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -713,9 +857,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>300</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -756,9 +903,24 @@ QHeaderView::section {
                           </property>
                           <property name="maximumSize">
                            <size>
-                            <width>250</width>
+                            <width>650</width>
                             <height>50</height>
                            </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QLineEdit {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d7;
+}
+</string>
                           </property>
                          </widget>
                         </item>
@@ -767,9 +929,12 @@ QHeaderView::section {
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::MinimumExpanding</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
-                            <width>40</width>
+                            <width>100</width>
                             <height>20</height>
                            </size>
                           </property>
@@ -779,24 +944,46 @@ QHeaderView::section {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="student_oppourtunities_button_2">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
+                      <widget class="QFrame" name="frame_11">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
                        </property>
-                       <property name="font">
-                        <font>
-                         <family>Arial</family>
-                         <pointsize>11</pointsize>
-                         <weight>50</weight>
-                         <italic>false</italic>
-                         <bold>false</bold>
-                        </font>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
                        </property>
-                       <property name="styleSheet">
-                        <string notr="true">QPushButton {
+                       <layout class="QHBoxLayout" name="horizontalLayout_12">
+                        <item>
+                         <spacer name="horizontalSpacer_7">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>247</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="student_oppourtunities_button_2">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>11</pointsize>
+                            <weight>50</weight>
+                            <italic>false</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
     background-color: white;
     color: black;
     border-radius: 15px;                /* أطراف منحنية */
@@ -812,10 +999,26 @@ QPushButton:hover {
 
 
 </string>
-                       </property>
-                       <property name="text">
-                        <string>Save Changes</string>
-                       </property>
+                          </property>
+                          <property name="text">
+                           <string>Save Changes</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_15">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>247</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
                       </widget>
                      </item>
                     </layout>
@@ -1190,24 +1393,46 @@ QHeaderView::section {
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="refresh_opprtunities_button">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+               <widget class="QFrame" name="frame_10">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
                 </property>
-                <property name="font">
-                 <font>
-                  <family>Arial</family>
-                  <pointsize>11</pointsize>
-                  <weight>50</weight>
-                  <italic>false</italic>
-                  <bold>false</bold>
-                 </font>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
+                <layout class="QHBoxLayout" name="horizontalLayout_11">
+                 <item>
+                  <spacer name="horizontalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>285</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="refresh_opprtunities_button">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Arial</family>
+                     <pointsize>11</pointsize>
+                     <weight>50</weight>
+                     <italic>false</italic>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {
     background-color: white;
     color: black;
     border-radius: 15px;                /* أطراف منحنية */
@@ -1223,10 +1448,85 @@ QPushButton:hover {
 
 
 </string>
+                   </property>
+                   <property name="text">
+                    <string>Refresh</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_6">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>285</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_4">
+          <attribute name="title">
+           <string>صفحة</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QFrame" name="frame_8">
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QFrame" name="frame_9">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(22, 22, 46);</string>
                 </property>
-                <property name="text">
-                 <string>Refresh</string>
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
                 </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>600</width>
+                     <height>500</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="pixmap">
+                    <pixmap>images/ChatGPT Image 27 أبريل 2025، 02_22_51 م.png</pixmap>
+                   </property>
+                   <property name="scaledContents">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
@@ -1461,7 +1761,7 @@ QPushButton:hover {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>883</width>
+     <width>996</width>
      <height>26</height>
     </rect>
    </property>

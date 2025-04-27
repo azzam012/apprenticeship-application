@@ -1,15 +1,24 @@
-import sys
+import sys , os
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
-from student_signup import StudentSignup
-from company_signup import CompanySignup
+from user_interface.student_signup import StudentSignup
+from user_interface.company_signup import CompanySignup
+
+
+from user_interface.student_dashboard import StudentDashboard
+from models.student import get_student_by_email_and_password
+#from user_interface.company_dashboard import CompanyDashboard
+#from user_interface.student_signup import StudentSignup
+#from user_interface.company_signup import CompanySignup
 
 
 
 class LoginDialog(QDialog):
     def __init__(self):
         super().__init__()
-        loadUi("user_interface/login.ui", self)  # the location of login window in Qt Designer
+        ui_path = os.path.join(os.path.dirname(__file__), 'login.ui')
+        loadUi(ui_path, self)
+        #loadUi("user_interface/login.ui", self)  # the location of login window in Qt Designer
         #self.setFixedSize(self.size())
         #self.showMaximized()
 
@@ -31,9 +40,19 @@ class LoginDialog(QDialog):
             return
         
         if self.student_radio.isChecked():
-            print('Logging in as student')
-        elif self.company_radio.isChecked():
-            print('Logging in as company')
+             student = get_student_by_email_and_password(email, password)
+            
+             if student:
+                self.close()
+                self.dashboard_window = StudentDashboard(student_id=student[0])
+                self.dashboard_window.show()
+             else:
+                QMessageBox.warning(self, "Error", "Invalid email or password")
+    
+        #elif self.company_radio.isChecked():
+        #    self.dashboard = CompanyDashboard()
+         #   self.dashboard.show()
+        #    self.close()
         else:
             QMessageBox.warning(self,'Error!','Please select your user type.')
 
@@ -44,6 +63,7 @@ class LoginDialog(QDialog):
     def open_company_signup(self):
         self.company_signup_window = CompanySignup()
         self.company_signup_window.exec_()
+
 
 
 
