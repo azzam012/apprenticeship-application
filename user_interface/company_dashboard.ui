@@ -11,22 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Student Dashboard</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">QPushButton {
-    background-color: #eee;
-    color: black;
-}
-
-QPushButton:hover {
-    background-color: lightcoral;
-    color: white;
-}
-background-color: rgb(22, 22, 46);</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_13">
     <item>
      <widget class="QFrame" name="frame_2">
       <property name="styleSheet">
@@ -38,38 +26,38 @@ background-color: rgb(22, 22, 46);</string>
       <property name="frameShadow">
        <enum>QFrame::Plain</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
        <item>
-        <widget class="QTabWidget" name="student_tabWidget">
+        <widget class="QTabWidget" name="student_tabWidget_2">
          <property name="currentIndex">
           <number>3</number>
          </property>
-         <widget class="QWidget" name="tab">
+         <widget class="QWidget" name="tab_7">
           <attribute name="title">
            <string>Tab 1</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
-            <widget class="QFrame" name="frame_3">
+            <widget class="QFrame" name="frame_14">
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
               <item>
-               <widget class="QTabWidget" name="tabWidget">
+               <widget class="QTabWidget" name="tabWidget_2">
                 <property name="currentIndex">
                  <number>0</number>
                 </property>
-                <widget class="QWidget" name="tab_5">
+                <widget class="QWidget" name="tab_8">
                  <attribute name="title">
                   <string>info</string>
                  </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <layout class="QVBoxLayout" name="verticalLayout_3">
                   <item>
-                   <widget class="QFrame" name="frame_5">
+                   <widget class="QFrame" name="frame_15">
                     <property name="font">
                      <font>
                       <strikeout>false</strikeout>
@@ -85,9 +73,9 @@ background-color: rgb(22, 22, 46);</string>
                     <property name="frameShadow">
                      <enum>QFrame::Plain</enum>
                     </property>
-                    <layout class="QHBoxLayout" name="horizontalLayout_6">
+                    <layout class="QHBoxLayout" name="horizontalLayout_17">
                      <item>
-                      <widget class="QTableWidget" name="student_info_table">
+                      <widget class="QTableWidget" name="student_info_table_2">
                        <property name="enabled">
                         <bool>true</bool>
                        </property>
@@ -95,13 +83,15 @@ background-color: rgb(22, 22, 46);</string>
                         <font>
                          <family>Arial</family>
                          <pointsize>11</pointsize>
+                         <strikeout>false</strikeout>
+                         <kerning>true</kerning>
                         </font>
                        </property>
                        <property name="cursor" stdset="0">
                         <cursorShape>ArrowCursor</cursorShape>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::LeftToRight</enum>
+                        <enum>Qt::RightToLeft</enum>
                        </property>
                        <property name="autoFillBackground">
                         <bool>false</bool>
@@ -281,31 +271,31 @@ QHeaderView::section {
                   </item>
                  </layout>
                 </widget>
-                <widget class="QWidget" name="tab_6">
+                <widget class="QWidget" name="tab_9">
                  <attribute name="title">
                   <string>edit info</string>
                  </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
                   <item>
-                   <widget class="QFrame" name="frame_4">
+                   <widget class="QFrame" name="frame_23">
                     <property name="frameShape">
                      <enum>QFrame::NoFrame</enum>
                     </property>
                     <property name="frameShadow">
                      <enum>QFrame::Plain</enum>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout">
+                    <layout class="QVBoxLayout" name="verticalLayout_9">
                      <item>
-                      <widget class="QFrame" name="frame_12">
+                      <widget class="QFrame" name="frame_24">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_14">
+                       <layout class="QHBoxLayout" name="horizontalLayout_25">
                         <item>
-                         <widget class="QLabel" name="label_6">
+                         <widget class="QLabel" name="label_8">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -318,7 +308,7 @@ QHeaderView::section {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="lineEdit_6">
+                         <widget class="QLineEdit" name="lineEdit_8">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -349,7 +339,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_4">
+                         <spacer name="horizontalSpacer_16">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -368,16 +358,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_16">
+                      <widget class="QFrame" name="frame_25">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_18">
+                       <layout class="QHBoxLayout" name="horizontalLayout_26">
                         <item>
-                         <widget class="QLabel" name="label_10">
+                         <widget class="QLabel" name="label_17">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -390,7 +380,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_name_input">
+                         <widget class="QLineEdit" name="lineEdit_17">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -421,7 +411,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_8">
+                         <spacer name="horizontalSpacer_17">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -440,16 +430,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_17">
+                      <widget class="QFrame" name="frame_26">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_19">
+                       <layout class="QHBoxLayout" name="horizontalLayout_27">
                         <item>
-                         <widget class="QLabel" name="label_11">
+                         <widget class="QLabel" name="label_18">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -462,7 +452,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_email_input">
+                         <widget class="QLineEdit" name="lineEdit_18">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -493,7 +483,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_9">
+                         <spacer name="horizontalSpacer_18">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -512,16 +502,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_18">
+                      <widget class="QFrame" name="frame_27">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_20">
+                       <layout class="QHBoxLayout" name="horizontalLayout_28">
                         <item>
-                         <widget class="QLabel" name="label_12">
+                         <widget class="QLabel" name="label_19">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -534,7 +524,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_password_input">
+                         <widget class="QLineEdit" name="lineEdit_19">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -565,7 +555,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_10">
+                         <spacer name="horizontalSpacer_19">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -584,16 +574,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_13">
+                      <widget class="QFrame" name="frame_28">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_15">
+                       <layout class="QHBoxLayout" name="horizontalLayout_29">
                         <item>
-                         <widget class="QLabel" name="label_7">
+                         <widget class="QLabel" name="label_9">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -606,7 +596,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_gpa_input">
+                         <widget class="QLineEdit" name="lineEdit_9">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -637,7 +627,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_5">
+                         <spacer name="horizontalSpacer_20">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -656,16 +646,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_20">
+                      <widget class="QFrame" name="frame_29">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_22">
+                       <layout class="QHBoxLayout" name="horizontalLayout_30">
                         <item>
-                         <widget class="QLabel" name="label_14">
+                         <widget class="QLabel" name="label_20">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -678,7 +668,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_specialization_input">
+                         <widget class="QLineEdit" name="lineEdit_20">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -709,7 +699,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_12">
+                         <spacer name="horizontalSpacer_21">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -728,16 +718,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_19">
+                      <widget class="QFrame" name="frame_30">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_21">
+                       <layout class="QHBoxLayout" name="horizontalLayout_31">
                         <item>
-                         <widget class="QLabel" name="label_13">
+                         <widget class="QLabel" name="label_21">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -750,7 +740,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_mobile_input">
+                         <widget class="QLineEdit" name="lineEdit_21">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -781,7 +771,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_11">
+                         <spacer name="horizontalSpacer_22">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -800,16 +790,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_21">
+                      <widget class="QFrame" name="frame_31">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_23">
+                       <layout class="QHBoxLayout" name="horizontalLayout_32">
                         <item>
-                         <widget class="QLabel" name="label_15">
+                         <widget class="QLabel" name="label_22">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -822,7 +812,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_skills_input">
+                         <widget class="QLineEdit" name="lineEdit_22">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                             <horstretch>80</horstretch>
@@ -853,7 +843,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_13">
+                         <spacer name="horizontalSpacer_23">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -872,16 +862,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_22">
+                      <widget class="QFrame" name="frame_32">
                        <property name="frameShape">
                         <enum>QFrame::NoFrame</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Plain</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_24">
+                       <layout class="QHBoxLayout" name="horizontalLayout_33">
                         <item>
-                         <widget class="QLabel" name="label_16">
+                         <widget class="QLabel" name="label_23">
                           <property name="font">
                            <font>
                             <family>Arial</family>
@@ -894,7 +884,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="edit_locations_input">
+                         <widget class="QLineEdit" name="lineEdit_23">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
@@ -925,7 +915,7 @@ QLineEdit:focus {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_14">
+                         <spacer name="horizontalSpacer_24">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -944,16 +934,16 @@ QLineEdit:focus {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QFrame" name="frame_11">
+                      <widget class="QFrame" name="frame_33">
                        <property name="frameShape">
                         <enum>QFrame::StyledPanel</enum>
                        </property>
                        <property name="frameShadow">
                         <enum>QFrame::Raised</enum>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_12">
+                       <layout class="QHBoxLayout" name="horizontalLayout_34">
                         <item>
-                         <spacer name="horizontalSpacer_7">
+                         <spacer name="horizontalSpacer_25">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -966,7 +956,7 @@ QLineEdit:focus {
                          </spacer>
                         </item>
                         <item>
-                         <widget class="QPushButton" name="save_changes_button">
+                         <widget class="QPushButton" name="student_oppourtunities_button_3">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
@@ -1006,7 +996,7 @@ QPushButton:hover {
                          </widget>
                         </item>
                         <item>
-                         <spacer name="horizontalSpacer_15">
+                         <spacer name="horizontalSpacer_26">
                           <property name="orientation">
                            <enum>Qt::Horizontal</enum>
                           </property>
@@ -1033,13 +1023,13 @@ QPushButton:hover {
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_3">
+         <widget class="QWidget" name="tab_10">
           <attribute name="title">
            <string>صفحة</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <layout class="QHBoxLayout" name="horizontalLayout_35">
            <item>
-            <widget class="QFrame" name="frame_6">
+            <widget class="QFrame" name="frame_34">
              <property name="font">
               <font>
                <strikeout>false</strikeout>
@@ -1055,9 +1045,9 @@ QPushButton:hover {
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <layout class="QHBoxLayout" name="horizontalLayout_36">
               <item>
-               <widget class="QTableWidget" name="student_applications_table">
+               <widget class="QTableWidget" name="student_applications_table_2">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1065,6 +1055,8 @@ QPushButton:hover {
                  <font>
                   <family>Arial</family>
                   <pointsize>11</pointsize>
+                  <strikeout>false</strikeout>
+                  <kerning>true</kerning>
                  </font>
                 </property>
                 <property name="cursor" stdset="0">
@@ -1224,13 +1216,13 @@ QHeaderView::section {
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_2">
+         <widget class="QWidget" name="tab_11">
           <attribute name="title">
            <string>Tab 2</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <layout class="QHBoxLayout" name="horizontalLayout_37">
            <item>
-            <widget class="QFrame" name="frame_7">
+            <widget class="QFrame" name="frame_35">
              <property name="contextMenuPolicy">
               <enum>Qt::PreventContextMenu</enum>
              </property>
@@ -1240,9 +1232,9 @@ QHeaderView::section {
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_4">
+             <layout class="QVBoxLayout" name="verticalLayout_10">
               <item>
-               <widget class="QTableWidget" name="student_opportunities_table">
+               <widget class="QTableWidget" name="student_opportunities_table_2">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -1393,16 +1385,16 @@ QHeaderView::section {
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_10">
+               <widget class="QFrame" name="frame_36">
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <layout class="QHBoxLayout" name="horizontalLayout_38">
                  <item>
-                  <spacer name="horizontalSpacer_3">
+                  <spacer name="horizontalSpacer_27">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -1415,7 +1407,7 @@ QHeaderView::section {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="refresh_opprtunities_button">
+                  <widget class="QPushButton" name="refresh_opprtunities_button_2">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -1455,7 +1447,7 @@ QPushButton:hover {
                   </widget>
                  </item>
                  <item>
-                  <spacer name="horizontalSpacer_6">
+                  <spacer name="horizontalSpacer_28">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -1475,22 +1467,22 @@ QPushButton:hover {
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_4">
+         <widget class="QWidget" name="tab_12">
           <attribute name="title">
            <string>صفحة</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
+          <layout class="QVBoxLayout" name="verticalLayout_11">
            <item>
-            <widget class="QFrame" name="frame_8">
+            <widget class="QFrame" name="frame_37">
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Plain</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <layout class="QVBoxLayout" name="verticalLayout_12">
               <item>
-               <widget class="QFrame" name="frame_9">
+               <widget class="QFrame" name="frame_38">
                 <property name="styleSheet">
                  <string notr="true">background-color: rgb(22, 22, 46);</string>
                 </property>
@@ -1500,9 +1492,9 @@ QPushButton:hover {
                 <property name="frameShadow">
                  <enum>QFrame::Plain</enum>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <layout class="QHBoxLayout" name="horizontalLayout_39">
                  <item>
-                  <widget class="QLabel" name="label">
+                  <widget class="QLabel" name="label_2">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -1547,7 +1539,7 @@ QPushButton:hover {
       <property name="frameShadow">
        <enum>QFrame::Plain</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_40">
        <property name="spacing">
         <number>4</number>
        </property>
@@ -1564,7 +1556,7 @@ QPushButton:hover {
         <number>0</number>
        </property>
        <item>
-        <spacer name="horizontalSpacer_2">
+        <spacer name="horizontalSpacer_29">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -1580,7 +1572,7 @@ QPushButton:hover {
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="student_info_button">
+        <widget class="QPushButton" name="student_info_button_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1619,7 +1611,7 @@ QPushButton:hover {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="student_applications_button">
+        <widget class="QPushButton" name="student_applications_button_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1657,7 +1649,7 @@ QPushButton:hover {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="student_oppourtunities_button">
+        <widget class="QPushButton" name="student_oppourtunities_button_4">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1697,7 +1689,7 @@ QPushButton:hover {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="student_logout_button">
+        <widget class="QPushButton" name="student_logout_button_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1736,7 +1728,7 @@ QPushButton:hover {
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer">
+        <spacer name="horizontalSpacer_30">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>

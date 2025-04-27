@@ -102,6 +102,17 @@ def get_student_by_email_and_password(email, password):
     conn.close()
     return result
 
+# Function to update student info
+def update_student(student_id, **kwargs):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    updates = ", ".join(f"{key} = ?" for key in kwargs)
+    values = list(kwargs.values()) + [student_id]
+    cursor.execute(f"UPDATE students SET {updates} WHERE student_id = ?", values)
+    conn.commit()
+    conn.close()
+
+
 def add_company(company_name, company_email, company_password):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -237,6 +248,8 @@ class StudentDashboard(QMainWindow):
         self.student_applications_button.clicked.connect(self.open_applications_tab)
         self.student_oppourtunities_button.clicked.connect(self.open_oppourtunities_tab)
         self.student_logout_button.clicked.connect(self.logout)
+        self.save_changes_button.clicked.connect(self.save_changes)
+
 
     def open_info_tab(self):
         self.student_tabWidget.setCurrentIndex(0)
@@ -275,6 +288,65 @@ class StudentDashboard(QMainWindow):
             self.student_info_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         else:
             QMessageBox.warning(self, "Error", "Could not load student information.")
+
+    def load_edit_info(self):
+        student_info = get_student_info(self.current_student_id)
+        
+        if student_info:
+            self.edit_name_input.setText(student_info[1])
+            self.edit_mobile_input.setText(student_info[2])
+            self.edit_email_input.setText(student_info[3])
+            self.edit_password_input.setText(student_info[4])
+            self.edit_gpa_input.setText(str(student_info[5]))
+            self.edit_specialization_input.setText(student_info[6])
+            self.edit_locations_input.setText(student_info[7])
+            self.edit_skills_input.setText(student_info[8])
+
+    def save_changes(self):
+    # Read values from LineEdits
+        name = self.edit_name_input.text()
+        mobile = self.edit_mobile_input.text()
+        email = self.edit_email_input.text()
+        password = self.edit_password_input.text()
+        gpa = self.edit_gpa_input.text()
+        specialization = self.edit_specialization_input.text()
+        locations = self.edit_locations_input.text()
+        skills = self.edit_skills_input.text()
+
+        # Validate that all fields are filled
+        if not all([name, mobile, email, password, gpa, specialization, locations, skills]):
+            QMessageBox.warning(self, "Input Error", "Please fill in all fields before saving.")
+            return
+
+        # Validate that GPA is a number
+        try:
+            gpa = float(gpa)
+        except ValueError:
+            QMessageBox.warning(self, "Input Error", "GPA must be a valid number.")
+            return
+
+        # Prepare the updated data
+        updated_data = {
+            "name": name,
+            "mobile_number": mobile,
+            "email": email,
+            "password": password,
+            "gpa": gpa,
+            "specialization": specialization,
+            "preferred_locations": locations,
+            "skills": skills
+        }
+
+        try:
+            update_student(self.current_student_id, **updated_data)
+            QMessageBox.information(self, "Success", "Your information has been updated successfully!")
+
+            # Reload info tab to show updated information
+            self.load_student_info()
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to update information: {str(e)}")
+
+
 
 # -------------------------------------
 # Company Dashboard
