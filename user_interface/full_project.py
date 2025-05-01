@@ -7,6 +7,8 @@ import os
 import sqlite3
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
+
 
 # -------------------------------------
 # Database Path Configuration
@@ -17,6 +19,143 @@ db_path = os.path.abspath(
         'database', 'apprenticeship.db'
     )
 )
+
+# =====================================
+# Authentication Setup (MC4 Role)
+# =====================================
+
+# Authentication logic with hashed passwords, access logs, and role-specific handlers
+# Defined using the StudentAuthModel and CompanyAuthModel classes.
+
+from datetime import datetime
+import bcrypt
+
+# Define auth classes
+class AuthModel:
+    def __init__(self, db_path):
+        self.db_path = db_path
+        self._create_tables()
+
+    def _create_tables(self):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS access_logs (
+            log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id TEXT NOT NULL,
+            user_type TEXT NOT NULL,
+            login_time TEXT NOT NULL,
+            logout_time TEXT,
+            status TEXT NOT NULL
+        )
+        """)
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def hash_password(password):
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    @staticmethod
+    def check_password(hashed_password, user_password):
+        return bcrypt.checkpw(user_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+    @staticmethod
+    def is_strong_password(password):
+        if len(password) < 8:
+            return False
+        if not any(char.isdigit() for char in password):
+            return False
+        if not any(char.isalpha() for char in password):
+            return False
+        return True
+
+    def log_access(self, user_id, user_type, status):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        login_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        cursor.execute("""
+        INSERT INTO access_logs (user_id, user_type, login_time, status)
+        VALUES (?, ?, ?, ?)
+        """, (user_id, user_type, login_time, status))
+        conn.commit()
+        conn.close()
+
+class StudentAuthModel(AuthModel):
+    def add_student(self, student_id, name, mobile_number, email, password, gpa, specialization, preferred_locations, skills):
+        if not self.is_strong_password(password):
+            raise ValueError("Password must be at least 8 characters with letters and numbers")
+
+        hashed_password = self.hash_password(password)
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+            INSERT INTO students (student_id, name, mobile_number, email, password, gpa, specialization, preferred_locations, skills)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (student_id, name, mobile_number, email, hashed_password, gpa, specialization, preferred_locations, skills))
+            conn.commit()
+            self.log_access(student_id, "student", "success")
+        except sqlite3.IntegrityError as e:
+            if "email" in str(e):
+                raise ValueError("Email already exists")
+            raise
+        finally:
+            conn.close()
+
+    def get_student_by_email_and_password(self, email, password):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT student_id, password FROM students WHERE email = ?", (email,))
+        result = cursor.fetchone()
+        conn.close()
+        if result and self.check_password(result[1], password):
+            self.log_access(result[0], "student", "success")
+            return (result[0],)
+        else:
+            self.log_access(email, "student", "failed")
+            return None
+
+class CompanyAuthModel(AuthModel):
+    def add_company(self, company_name, company_email, company_password):
+        if not self.is_strong_password(company_password):
+            raise ValueError("Password must be at least 8 characters with letters and numbers")
+
+        hashed_password = self.hash_password(company_password)
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+            INSERT INTO companies (company_name, company_email, company_password)
+            VALUES (?, ?, ?)
+            """, (company_name, company_email, hashed_password))
+            conn.commit()
+            company_id = cursor.lastrowid
+            self.log_access(str(company_id), "company", "success")
+        except sqlite3.IntegrityError as e:
+            if "company_email" in str(e):
+                raise ValueError("Company email already exists")
+            raise
+        finally:
+            conn.close()
+
+    def get_company_by_email_and_password(self, email, password):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT company_id, company_password FROM companies WHERE company_email = ?", (email,))
+        result = cursor.fetchone()
+        conn.close()
+        if result and self.check_password(result[1], password):
+            self.log_access(str(result[0]), "company", "success")
+            return (result[0],)
+        else:
+            self.log_access(email, "company", "failed")
+            return None
+
+# Initialize authentication handlers
+student_auth = StudentAuthModel(db_path)
+company_auth = CompanyAuthModel(db_path)
+
 
 # Create students table if it does not exist
 conn = sqlite3.connect(db_path)
@@ -173,7 +312,7 @@ class StudentSignup(QDialog):
             return
 
         try:
-            add_student(student_id, name, mobile, email, password, gpa, specialization, locations, skills)
+            student_auth.add_student(student_id, name, mobile, email, password, gpa, specialization, locations, skills)
             QMessageBox.information(self, "Success", "Student registered successfully")
             self.close()
         except Exception as e:
@@ -199,7 +338,7 @@ class CompanySignup(QDialog):
             return
 
         try:
-            add_company(company_name, company_email, company_password)
+            company_auth.add_company(company_name, company_email, company_password)
             QMessageBox.information(self, "Success", "Company registered successfully")
             self.close()
         except Exception as e:
@@ -227,7 +366,7 @@ class LoginDialog(QDialog):
             return
 
         if self.student_radio.isChecked():
-            student = get_student_by_email_and_password(email, password)
+            student = student_auth.get_student_by_email_and_password(email, password)
             if student:
                 self.close()
                 self.dashboard_window = StudentDashboard(student_id=student[0])
@@ -236,7 +375,7 @@ class LoginDialog(QDialog):
                 QMessageBox.warning(self, "Error", "Invalid email or password")
         
         elif self.company_radio.isChecked():
-            company = get_company_by_email_and_password(email, password)
+            company = company_auth.get_company_by_email_and_password(email, password)
             
             if company:
                 self.close()
