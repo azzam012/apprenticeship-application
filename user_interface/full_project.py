@@ -39,7 +39,6 @@ conn.commit()
 # Create companies table if it does not exist
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS companies (
-    company_id INTEGER PRIMARY KEY AUTOINCREMENT,
     company_name TEXT NOT NULL,
     company_email TEXT UNIQUE NOT NULL,
     company_password TEXT NOT NULL
@@ -50,7 +49,7 @@ CREATE TABLE IF NOT EXISTS companies (
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS openings (
     opening_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    company_id INTEGER NOT NULL,
+    company_name TEXT NOT NULL,
     specialization TEXT NOT NULL,
     location TEXT NOT NULL,
     stipend INTEGER NOT NULL CHECK(stipend > 0),
@@ -112,6 +111,13 @@ def update_student(student_id, **kwargs):
     conn.commit()
     conn.close()
 
+def get_company_by_email_and_password(email, password):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT company_name FROM companies WHERE company_email = ? AND company_password = ?", (email, password))
+    result = cursor.fetchone()
+    conn.close()
+    return result
 
 def add_company(company_name, company_email, company_password):
     conn = sqlite3.connect(db_path)
@@ -122,6 +128,14 @@ def add_company(company_name, company_email, company_password):
     """, (company_name, company_email, company_password))
     conn.commit()
     conn.close()
+
+def get_company_info(company_name):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM companies WHERE company_name = ?", (company_name,))
+    result = cursor.fetchone()
+    conn.close()
+    return result  
 
 # =====================================
 # UI Sections (Login, Signups, Dashboards)
@@ -220,6 +234,18 @@ class LoginDialog(QDialog):
                 self.dashboard_window.show()
             else:
                 QMessageBox.warning(self, "Error", "Invalid email or password")
+        
+        elif self.company_radio.isChecked():
+            company = get_company_by_email_and_password(email, password)
+            
+            if company:
+                self.close()
+                self.dashboard_window = CompanyDashboard(company_name=company[0])
+                self.dashboard_window.show()
+            
+            else:
+                QMessageBox.warning(self, "Error", "Invalid email or password for company.")
+        
         else:
             QMessageBox.warning(self, "Error", "Please select your user type.")
 
@@ -277,10 +303,12 @@ class StudentDashboard(QMainWindow):
             self.student_info_table.setRowCount(len(headers))
             self.student_info_table.setColumnCount(2)
             self.student_info_table.setHorizontalHeaderLabels(["Field", "Value"])
+    
+            self.zipped = list(zip(headers, student_info))
+            for i in range(len(self.zipped)):
+                self.student_info_table.setItem(i, 0, QTableWidgetItem(self.zipped[i][0]))
+                self.student_info_table.setItem(i, 1, QTableWidgetItem(str(self.zipped[i][1])))
 
-            for row, (field, value) in enumerate(zip(headers, student_info)):
-                self.student_info_table.setItem(row, 0, QTableWidgetItem(field))
-                self.student_info_table.setItem(row, 1, QTableWidgetItem(str(value)))
 
             self.student_info_table.resizeColumnsToContents()
             self.student_info_table.horizontalHeader().setStretchLastSection(True)
@@ -352,26 +380,41 @@ class StudentDashboard(QMainWindow):
 # Company Dashboard
 # -------------------------------------
 class CompanyDashboard(QMainWindow):
-    def __init__(self, company_id=None):
+    def __init__(self, company_name):
         super().__init__()
         loadUi(os.path.join(os.path.dirname(__file__), "company_dashboard.ui"), self)
 
-        self.company_id = company_id
-        self.view_info_button.clicked.connect(self.view_company_info)
-        self.view_openings_button.clicked.connect(self.view_company_openings)
-        self.add_opening_button.clicked.connect(self.add_new_opening)
-        self.logout_button.clicked.connect(self.logout)
+        self.current_company_name = company_name
+        self.handle_company_buttons()
+        
+    def handle_company_buttons(self):
+        self.view_company_info_button.clicked.connect(self.open_company_info_tab)
+        self.view_company_openings_button.clicked.connect(self.open_company_openings_tab)
+        self.view_company_addopenings_button.clicked.connect(self.open_company_addopenings_tab)
+        self.view_company_applications_button.clicked.connect(self.open_company_applications_tab)
+        self.company_logout_button.clicked.connect(self.company_logout)
+    
 
-    def view_company_info(self):
-        QMessageBox.information(self, "Company Info", f"Showing info for company ID: {self.company_id}")
+    def open_company_info_tab(self):
+        self.company_tabWidget.setCurrentIndex(0)
+        self.load_company_info()
 
-    def view_company_openings(self):
-        QMessageBox.information(self, "Company Openings", "Here are your current openings.")
+    def open_company_openings_tab(self):
+        self.company_tabWidget.setCurrentIndex(1)
+    
+    def open_company_addopenings_tab(self):
+        self.company_tabWidget.setCurrentIndex(2)
+    
+    def open_company_applications_tab(self):
+        self.company_tabWidget.setCurrentIndex(3)
+    
+    def load_company_info(self):
+        company_info = get_company_info(self.current_company_name)
 
-    def add_new_opening(self):
-        QMessageBox.information(self, "Add Opening", "Opening a form to add a new opportunity.")
 
-    def logout(self):
+    
+
+    def company_logout(self):
         self.close()
 
 # =====================================

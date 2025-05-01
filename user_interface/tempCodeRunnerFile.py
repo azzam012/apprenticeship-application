@@ -1,1 +1,2 @@
-save_changes_button
+else:
+            QMessageBox.warning(self, "Error", "Please select your user type.")
