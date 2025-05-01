@@ -410,6 +410,25 @@ class CompanyDashboard(QMainWindow):
     
     def load_company_info(self):
         company_info = get_company_info(self.current_company_name)
+        
+        if company_info:
+            headers = ["Company Name", "Email", "Password"]  
+            self.company_info_table.clear()
+            self.company_info_table.setRowCount(len(headers))
+            self.company_info_table.setColumnCount(2)
+            self.company_info_table.setHorizontalHeaderLabels(["Field", "Value"])
+
+            self.zipped = list(zip(headers, company_info))
+            for i in range(len(self.zipped)):
+                self.company_info_table.setItem(i, 0, QTableWidgetItem(self.zipped[i][0]))
+                self.company_info_table.setItem(i, 1, QTableWidgetItem(str(self.zipped[i][1])))
+
+            self.company_info_table.resizeColumnsToContents()
+            self.company_info_table.horizontalHeader().setStretchLastSection(True)
+            self.company_info_table.verticalHeader().setVisible(False)
+            self.company_info_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        else:
+            QMessageBox.warning(self, "Error", "Failed to load company information.")
 
 
     

@@ -30,7 +30,7 @@
        <item>
         <widget class="QTabWidget" name="company_tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="tab_7">
           <attribute name="title">
@@ -181,7 +181,7 @@ QHeaderView::section {
                         <bool>true</bool>
                        </property>
                        <property name="rowCount">
-                        <number>9</number>
+                        <number>3</number>
                        </property>
                        <property name="columnCount">
                         <number>1</number>
@@ -222,12 +222,6 @@ QHeaderView::section {
                        <row/>
                        <row/>
                        <row/>
-                       <row/>
-                       <row/>
-                       <row/>
-                       <row/>
-                       <row/>
-                       <row/>
                        <column/>
                        <item row="0" column="0">
                         <property name="text">
@@ -240,26 +234,6 @@ QHeaderView::section {
                         </property>
                        </item>
                        <item row="2" column="0">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </item>
-                       <item row="3" column="0">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </item>
-                       <item row="4" column="0">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </item>
-                       <item row="5" column="0">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </item>
-                       <item row="6" column="0">
                         <property name="text">
                          <string/>
                         </property>
