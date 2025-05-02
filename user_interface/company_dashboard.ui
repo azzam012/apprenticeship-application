@@ -91,7 +91,7 @@
                         <cursorShape>ArrowCursor</cursorShape>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::RightToLeft</enum>
+                        <enum>Qt::LeftToRight</enum>
                        </property>
                        <property name="autoFillBackground">
                         <bool>false</bool>
@@ -679,7 +679,7 @@ QPushButton:hover {
                  <bool>false</bool>
                 </property>
                 <property name="layoutDirection">
-                 <enum>Qt::RightToLeft</enum>
+                 <enum>Qt::LeftToRight</enum>
                 </property>
                 <property name="autoFillBackground">
                  <bool>false</bool>
@@ -877,52 +877,7 @@ QHeaderView::section {
                       <property name="frameShadow">
                        <enum>QFrame::Plain</enum>
                       </property>
-                      <layout class="QHBoxLayout" name="horizontalLayout_44">
-                       <item>
-                        <widget class="QLabel" name="label_11">
-                         <property name="font">
-                          <font>
-                           <family>Arial</family>
-                           <pointsize>10</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>GPA</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLineEdit" name="requierd_gpa_input">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                           <horstretch>80</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>700</width>
-                           <height>50</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">QLineEdit {
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    padding: 6px 10px;
-    background-color: #ffffff;
-    font-size: 13px;
-    color: #333;
-}
-
-QLineEdit:focus {
-    border: 1px solid #0078d7;
-}
-</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
+                      <layout class="QHBoxLayout" name="horizontalLayout_44"/>
                      </widget>
                     </item>
                     <item>
@@ -1122,7 +1077,7 @@ QLineEdit:focus {
                         </widget>
                        </item>
                        <item>
-                        <widget class="QSpinBox" name="stipend_spinbox">
+                        <widget class="QSpinBox" name="stipend_input">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                            <horstretch>0</horstretch>
@@ -1224,7 +1179,7 @@ QLineEdit:focus {
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="add__new_opening_button">
+                  <widget class="QPushButton" name="add_opening_button">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                      <horstretch>0</horstretch>
