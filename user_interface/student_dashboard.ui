@@ -1242,7 +1242,7 @@ QHeaderView::section {
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QTableWidget" name="student_opportunities_table">
+               <widget class="QTableWidget" name="student_oppourtunities_table">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>

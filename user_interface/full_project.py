@@ -1,13 +1,19 @@
-# =====================================
-# Database Setup Section (students, companies, applications)
-# =====================================
 
 import sys
 import os
 import sqlite3
+import random
+
+
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import Qt
+from functools import partial
+
+import smtplib                                   # for the emails
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 
 # -------------------------------------
 # Database Path Configuration
@@ -203,13 +209,42 @@ CREATE TABLE IF NOT EXISTS applications (
     application_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id TEXT NOT NULL,
     opening_id INTEGER NOT NULL,
+    status TEXT DEFAULT 'pending',
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (opening_id) REFERENCES openings(opening_id)
 )
 """)
 
+
 conn.commit()
 conn.close()
+
+
+# =====================================
+# Email function
+# =====================================
+
+
+def send_email(to_email, subject, body):
+    from_email = "watson.bogisich@ethereal.email"
+    from_password = "4BmCGmu1EQvTnYPdQe"
+
+    message = MIMEMultipart()
+    message["From"] = from_email
+    message["To"] = to_email
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "plain"))
+
+    try:
+        server = smtplib.SMTP("smtp.ethereal.email", 587)
+        server.starttls()
+        server.login(from_email, from_password)
+        server.send_message(message)
+        server.quit()
+        print(f"Email sent to {to_email}")
+    except Exception as e:
+        print(f"Failed to send email: {str(e)}")
+
 
 # =====================================
 # Login Window UI (LoginDialog)
@@ -227,6 +262,8 @@ class LoginDialog(QDialog):
         self.login_button.clicked.connect(self.handle_login)
         self.student_signup_button.clicked.connect(self.open_student_signup)
         self.company_signup_button.clicked.connect(self.open_company_signup)
+        self.forgot_password_button.clicked.connect(self.open_reset_password)
+
         
 
     def handle_login(self):
@@ -267,6 +304,11 @@ class LoginDialog(QDialog):
         self.company_signup_window = CompanySignup()
         self.company_signup_window.exec_()
 
+    def open_reset_password(self):
+        self.reset_window = ResetPasswordDialog()
+        self.reset_window.exec_()
+
+
 # =====================================
 # Student Signup Window UI (StudentSignup)
 # =====================================
@@ -302,6 +344,8 @@ class StudentSignup(QDialog):
         try:
             student_auth.add_student(student_id, name, mobile, email, password, gpa, specialization, locations, skills)
             QMessageBox.information(self, "Success", "Student registered successfully")
+
+            send_email(to_email=email,subject="Confirming Register", body=f"Hello {name}, Welcom to our apprenticeship system")
             self.close()
         except Exception as e:
             QMessageBox.critical(self, "Database Error", str(e))
@@ -333,6 +377,82 @@ class CompanySignup(QDialog):
         except Exception as e:
             QMessageBox.critical(self, "Database Error", str(e))
 
+
+# =====================================
+# Reset Password
+# =====================================
+
+
+class ResetPasswordDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        loadUi(os.path.join(os.path.dirname(__file__), "reset_password_wendow.ui"), self)
+
+        self.reset_tab_widget.tabBar().setVisible(False)
+
+        self.send_code_button.clicked.connect(self.send_code)
+        self.reset_password_button.clicked.connect(self.reset_password)
+
+        self.generated_code = None
+        self.reset_email = None
+
+    def send_code(self):
+        email = self.email_confirm_input.text().strip()
+        if not email:
+            QMessageBox.warning(self, "Input Error", "Please enter your email.")
+            return
+
+        # make sure that the student have the email
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT student_id FROM students WHERE email = ?", (email,))
+        student = cursor.fetchone()
+        conn.close()
+
+        if not student:
+            QMessageBox.warning(self, "Error", "No account found with this email.")
+            return
+
+        self.generated_code = str(random.randint(100000, 999999))
+        self.reset_email = email
+
+        # sending the email
+        send_email(
+            to_email=email,
+            subject="Password Reset Code",
+            body=f"Your password reset code is: {self.generated_code}"
+        )
+
+        QMessageBox.information(self, "Success", "Code sent to your email.")
+        self.reset_tab_widget.setCurrentIndex(1)
+
+    def reset_password(self):
+        entered_code = self.code_input.text().strip()
+        new_password = self.new_password_input.text().strip()
+
+        if not entered_code or not new_password:
+            QMessageBox.warning(self, "Input Error", "Please enter the code and new password.")
+            return
+
+        if entered_code != self.generated_code:
+            QMessageBox.critical(self, "Error", "Incorrect code.")
+            return
+
+        if not student_auth.is_strong_password(new_password):
+            QMessageBox.warning(self, "Weak Password", "Password must be at least 8 characters with letters and numbers.")
+            return
+
+        hashed = student_auth.hash_password(new_password)
+
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("UPDATE students SET password = ? WHERE email = ?", (hashed, self.reset_email))
+        conn.commit()
+        conn.close()
+
+        QMessageBox.information(self, "Success", "Password has been reset.")
+        self.close()
+
 # =====================================
 # Student Dashboard UI (StudentDashboard)
 # =====================================
@@ -363,6 +483,7 @@ class StudentDashboard(QMainWindow):
 
     def open_oppourtunities_tab(self):
         self.student_tabWidget.setCurrentIndex(2)
+        self.load_opportunities()
 
     def logout(self):
         QApplication.quit()
@@ -459,63 +580,87 @@ class StudentDashboard(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to update information: {str(e)}")
 
-    from PyQt5.QtCore import Qt
 
     def load_opportunities(self):
-        #  Get student info
-        student_info = self.get_student_info()
-        if not student_info:
-            QMessageBox.warning(self, "Error", "Failed to load student data.")
-            return
-
-        specialization = student_info[6].lower().strip()
-
-        skills_text = student_info[8].lower()
-        skills = set(s.strip() for s in skills_text.split(","))
-
-        locations_text = student_info[7].lower()
-        locations = set(l.strip() for l in locations_text.split(","))
-
-
-        #  Get all openings
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        cursor.execute("SELECT company_name, specialization, location, stipend, required_skills FROM openings")
-        all_openings = cursor.fetchall()
+
+        # studen info
+        cursor.execute("SELECT * FROM students WHERE student_id = ?", (self.current_student_id,))
+        student = cursor.fetchone()
+        if not student:
+            QMessageBox.warning(self, "Error", "Student info not found.")
+            return
+
+        specialization = student[6].strip().lower()
+        skills = set(s.strip().lower() for s in student[8].split(","))
+        locations = set(l.strip().lower() for l in student[7].split(","))
+
+        if not skills or not locations:
+            QMessageBox.warning(self, "Error", "Your profile is incomplete.")
+            return
+
+        # the oppertunities that the student applied to
+        cursor.execute("SELECT opening_id FROM applications WHERE student_id = ?", (self.current_student_id,))
+        applied = set(row[0] for row in cursor.fetchall())
+
+        # all oppertunities
+        cursor.execute("SELECT opening_id, company_name, specialization, location, stipend, required_skills FROM openings")
+        openings = cursor.fetchall()
         conn.close()
 
-        # Filter openings that match student
         matching = []
-        for opening in all_openings:
-            comp_name, spec, loc, stipend, required_skills = opening
+        for opening in openings:
+            opening_id, company_name, required_specialization, required_location, stipend_amount, required_skills_text = opening
 
-            if spec.strip().lower() != specialization:
+            if opening_id in applied:
                 continue
 
-            required = set(s.strip().lower() for s in required_skills.split(","))
-            if not skills & required:
+            if required_specialization.strip().lower() != specialization:
                 continue
 
-            if loc.strip().lower() not in locations:
+            if required_location.strip().lower() not in locations:
+                continue
+
+            required_skills_set = set(skill.strip().lower() for skill in required_skills_text.split(","))
+            if not skills & required_skills_set:
                 continue
 
             matching.append(opening)
 
-        # Show in table
-        headers = ["Company", "Specialization", "Location", "Stipend", "Required Skills"]
-        self.student_oppourtunities_table.setColumnCount(len(headers))
+        headers = ["Company", "Specialization", "Location", "Stipend", "Required Skills", "Apply"]
         self.student_oppourtunities_table.setRowCount(len(matching))
+        self.student_oppourtunities_table.setColumnCount(len(headers))
         self.student_oppourtunities_table.setHorizontalHeaderLabels(headers)
 
-        for row_index, row_data in enumerate(matching):
-            for col_index, value in enumerate(row_data):
-                item = QTableWidgetItem(str(value))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.student_oppourtunities_table.setItem(row_index, col_index, item)
+        for row, data in enumerate(matching):
+            for col in range(1, 6):  
+                self.student_oppourtunities_table.setItem(row, col - 1, QTableWidgetItem(str(data[col])))
+
+            btn = QPushButton("Apply")
+            btn.clicked.connect(partial(self.apply_to_opening, data[0]))
+            self.student_oppourtunities_table.setCellWidget(row, 5, btn)
 
         self.student_oppourtunities_table.resizeColumnsToContents()
         self.student_oppourtunities_table.horizontalHeader().setStretchLastSection(True)
-        self.student_oppourtunities_table.verticalHeader().setVisible(False)
+
+
+    def apply_to_opening(self, opening_id):
+        try:
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO applications (student_id, opening_id) VALUES (?, ?)",
+                (self.current_student_id, opening_id)
+            )
+            conn.commit()
+            conn.close()
+            QMessageBox.information(self, "Success", "You applied successfully.")
+            self.load_opportunities()
+        except sqlite3.IntegrityError:
+            QMessageBox.warning(self, "Warning", "You already applied for this opening.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Something went wrong: {e}")
 
 
 # =====================================
@@ -527,6 +672,7 @@ class CompanyDashboard(QMainWindow):
         super().__init__()
         loadUi(os.path.join(os.path.dirname(__file__), "company_dashboard.ui"), self)
 
+        self.company_tabWidget.tabBar().setVisible(False)
         self.current_company_name = company_name
         self.handle_company_buttons()
 
@@ -537,6 +683,7 @@ class CompanyDashboard(QMainWindow):
         self.view_company_applications_button.clicked.connect(self.open_company_applications_tab)
         self.company_save_changes_button.clicked.connect(self.save_company_changes)
         self.add_opening_button.clicked.connect(self.handle_add_opening)
+        self.view_company_applications_button.clicked.connect(self.open_company_applications_tab)
         self.company_logout_button.clicked.connect(self.company_logout)
 
     def open_company_info_tab(self):
@@ -552,6 +699,7 @@ class CompanyDashboard(QMainWindow):
 
     def open_company_applications_tab(self):
         self.company_tabWidget.setCurrentIndex(3)
+        self.load_applications()
 
     def load_company_info(self):
         conn = sqlite3.connect(db_path)
@@ -648,6 +796,8 @@ class CompanyDashboard(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to add opening: {str(e)}")
 
+
+
     def load_company_openings(self):
         try:
             conn = sqlite3.connect(db_path)
@@ -680,7 +830,61 @@ class CompanyDashboard(QMainWindow):
             QMessageBox.critical(self, "Error", f"Failed to load openings: {str(e)}")
 
 
+    def load_applications(self):
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
 
+        cursor.execute("""
+            SELECT a.application_id, s.name, s.email, o.opening_id, o.specialization, o.location, a.status
+            FROM applications a
+            JOIN students s ON a.student_id = s.student_id
+            JOIN openings o ON a.opening_id = o.opening_id
+            WHERE o.company_name = ?
+        """, (self.current_company_name,))
+        applications = cursor.fetchall()
+        conn.close()
+
+        headers = ["Student Name", "Email", "Specialization", "Location", "Status", "Action"]
+        self.company_applications_table.setColumnCount(len(headers))
+        self.company_applications_table.setRowCount(len(applications))
+        self.company_applications_table.setHorizontalHeaderLabels(headers)
+
+        for row, app in enumerate(applications):
+            name, email, spec, loc, status = app[1], app[2], app[4], app[5], app[6]
+            self.company_applications_table.setItem(row, 0, QTableWidgetItem(name))
+            self.company_applications_table.setItem(row, 1, QTableWidgetItem(email))
+            self.company_applications_table.setItem(row, 2, QTableWidgetItem(spec))
+            self.company_applications_table.setItem(row, 3, QTableWidgetItem(loc))
+            self.company_applications_table.setItem(row, 4, QTableWidgetItem(status))
+
+                    # the accept action will be only if the status is pending
+            if status == "pending":
+                accept_btn = QPushButton("Accept")
+                accept_btn.clicked.connect(partial(self.accept_application, app[0], email, name))
+                self.company_applications_table.setCellWidget(row, 5, accept_btn)
+
+        self.company_applications_table.resizeColumnsToContents()
+        self.company_applications_table.horizontalHeader().setStretchLastSection(True)
+
+
+
+
+    def accept_application(self, application_id, student_email, student_name):
+        try:
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute("UPDATE applications SET status = 'accepted' WHERE application_id = ?", (application_id,))
+            conn.commit()
+            conn.close()
+
+                # inform the student if accepted
+            send_email(to_email=student_email,  subject="Congrats!, you have been accepted in the apprenticeship",  body=f"Hi {student_name}, you have been accepted for {self.current_company_name}.")
+
+            QMessageBox.information(self, "Success", "Student accepted and notified.")
+            self.load_applications()  # update the table
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to accept application: {str(e)}")
 
 
     def company_logout(self):
