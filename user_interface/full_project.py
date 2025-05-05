@@ -480,6 +480,7 @@ class StudentDashboard(QMainWindow):
 
     def open_applications_tab(self):
         self.student_tabWidget.setCurrentIndex(1)
+        self.load_applications()
 
     def open_oppourtunities_tab(self):
         self.student_tabWidget.setCurrentIndex(2)
@@ -662,6 +663,31 @@ class StudentDashboard(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Something went wrong: {e}")
 
+    def load_applications(self):
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT o.company_name, o.specialization, o.location, o.stipend, o.required_skills, a.status
+            FROM applications a
+            JOIN openings o ON a.opening_id = o.opening_id
+            WHERE a.student_id = ?
+        """, (self.current_student_id,))
+        applications = cursor.fetchall()
+        conn.close()
+
+        headers = ["Company", "Specialization", "Location", "Stipend", "Skills", "Status"]
+        self.student_applications_table.setRowCount(len(applications))
+        self.student_applications_table.setColumnCount(len(headers))
+        self.student_applications_table.setHorizontalHeaderLabels(headers)
+
+        for row, app in enumerate(applications):
+            for col, value in enumerate(app):
+                self.student_applications_table.setItem(row, col, QTableWidgetItem(str(value)))
+
+        self.student_applications_table.resizeColumnsToContents()
+        self.student_applications_table.horizontalHeader().setStretchLastSection(True)
+
+
 
 # =====================================
 # Company Dashboard UI (CompanyDashboard)
@@ -810,7 +836,7 @@ class CompanyDashboard(QMainWindow):
             openings = cursor.fetchall()
             conn.close()
 
-            headers = ["ID", "Specialization", "Location", "Stipend", "Skills"]
+            headers = ["ID", "Specialization", "Location", "Stipend", "Skills", "Delete"]
             self.company_openings_table.setColumnCount(len(headers))
             self.company_openings_table.setRowCount(len(openings))
             self.company_openings_table.setHorizontalHeaderLabels(headers)
@@ -820,6 +846,10 @@ class CompanyDashboard(QMainWindow):
             for row_index, row_data in enumerate(openings):
                 for col_index, value in enumerate(row_data):
                     self.company_openings_table.setItem(row_index, col_index, QTableWidgetItem(str(value)))
+                    delete_btn = QPushButton("Delete")
+                    delete_btn.clicked.connect(partial(self.delete_opening, row_data[0]))  
+                    self.company_openings_table.setCellWidget(row_index, 5, delete_btn)
+
 
             self.company_openings_table.resizeColumnsToContents()
             self.company_openings_table.horizontalHeader().setStretchLastSection(True)
@@ -835,33 +865,36 @@ class CompanyDashboard(QMainWindow):
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT a.application_id, s.name, s.email, o.opening_id, o.specialization, o.location, a.status
+            SELECT a.application_id, s.name, s.email, s.gpa, o.opening_id, o.specialization, o.location, a.status
             FROM applications a
             JOIN students s ON a.student_id = s.student_id
             JOIN openings o ON a.opening_id = o.opening_id
             WHERE o.company_name = ?
+            ORDER BY s.gpa DESC
         """, (self.current_company_name,))
+
         applications = cursor.fetchall()
         conn.close()
 
-        headers = ["Student Name", "Email", "Specialization", "Location", "Status", "Action"]
+        headers = ["Student Name", "Email", "GPA", "Specialization", "Location", "Status", "Action"]
         self.company_applications_table.setColumnCount(len(headers))
         self.company_applications_table.setRowCount(len(applications))
         self.company_applications_table.setHorizontalHeaderLabels(headers)
 
         for row, app in enumerate(applications):
-            name, email, spec, loc, status = app[1], app[2], app[4], app[5], app[6]
+            name, email, gpa, spec, loc, status = app[1], app[2], app[3], app[5], app[6], app[7]
             self.company_applications_table.setItem(row, 0, QTableWidgetItem(name))
             self.company_applications_table.setItem(row, 1, QTableWidgetItem(email))
-            self.company_applications_table.setItem(row, 2, QTableWidgetItem(spec))
-            self.company_applications_table.setItem(row, 3, QTableWidgetItem(loc))
-            self.company_applications_table.setItem(row, 4, QTableWidgetItem(status))
+            self.company_applications_table.setItem(row, 2, QTableWidgetItem(str(gpa)))
+            self.company_applications_table.setItem(row, 3, QTableWidgetItem(spec))
+            self.company_applications_table.setItem(row, 4, QTableWidgetItem(loc))
+            self.company_applications_table.setItem(row, 5, QTableWidgetItem(status))
 
                     # the accept action will be only if the status is pending
             if status == "pending":
                 accept_btn = QPushButton("Accept")
                 accept_btn.clicked.connect(partial(self.accept_application, app[0], email, name))
-                self.company_applications_table.setCellWidget(row, 5, accept_btn)
+                self.company_applications_table.setCellWidget(row, 6, accept_btn)
 
         self.company_applications_table.resizeColumnsToContents()
         self.company_applications_table.horizontalHeader().setStretchLastSection(True)
@@ -885,6 +918,25 @@ class CompanyDashboard(QMainWindow):
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to accept application: {str(e)}")
+
+    def delete_opening(self, opening_id):
+        confirm = QMessageBox.question(self, "Confirm", "Are you sure you want to delete this opening?", QMessageBox.Yes | QMessageBox.No)
+        if confirm == QMessageBox.Yes:
+            try:
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+
+                cursor.execute("DELETE FROM applications WHERE opening_id = ?", (opening_id,))
+                cursor.execute("DELETE FROM openings WHERE opening_id = ?", (opening_id,))
+
+                conn.commit()
+                conn.close()
+                QMessageBox.information(self, "Success", "Opening and related applications deleted successfully.")
+                self.load_company_openings()
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to delete opening: {e}")
+
+
 
 
     def company_logout(self):

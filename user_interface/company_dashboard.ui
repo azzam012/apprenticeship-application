@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Company Dashboard</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -1090,6 +1093,12 @@ QLineEdit:focus {
                            <height>0</height>
                           </size>
                          </property>
+                         <property name="minimum">
+                          <number>1</number>
+                         </property>
+                         <property name="maximum">
+                          <number>50000</number>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -1270,7 +1279,7 @@ QPushButton:hover {
                  <cursorShape>ArrowCursor</cursorShape>
                 </property>
                 <property name="layoutDirection">
-                 <enum>Qt::RightToLeft</enum>
+                 <enum>Qt::LeftToRight</enum>
                 </property>
                 <property name="autoFillBackground">
                  <bool>false</bool>
@@ -1566,15 +1575,15 @@ QHeaderView::section {
           <string notr="true">QPushButton {
     background-color: white;
     color: black;
-    border-radius: 15px;                /* أطراف منحنية */
-    border: 1px solid #ccc;             /* حواف خفيفة بلون رمادي فاتح */
+    border-radius: 15px;                
+    border: 1px solid #ccc;             
     padding: 10px 20px;
 }
 
 QPushButton:hover {
-    background-color: #003366;         /* أزرق غامق */
+    background-color: #003366;         
     color: white;
-    border: 1px solid #003366;         /* الحواف تصير بنفس لون الخلفية عند التمرير */
+    border: 1px solid #003366;       
 }
 
 </string>
@@ -1605,16 +1614,17 @@ QPushButton:hover {
           <string notr="true">QPushButton {
     background-color: white;
     color: black;
-    border-radius: 15px;                /* أطراف منحنية */
-    border: 1px solid #ccc;             /* حواف خفيفة بلون رمادي فاتح */
+    border-radius: 15px;                
+    border: 1px solid #ccc;             
     padding: 10px 20px;
 }
 
 QPushButton:hover {
-    background-color: #003366;         /* أزرق غامق */
+    background-color: #003366;         
     color: white;
-    border: 1px solid #003366;         /* الحواف تصير بنفس لون الخلفية عند التمرير */
+    border: 1px solid #003366;       
 }
+
 </string>
          </property>
          <property name="text">
@@ -1643,17 +1653,16 @@ QPushButton:hover {
           <string notr="true">QPushButton {
     background-color: white;
     color: black;
-    border-radius: 15px;                /* أطراف منحنية */
-    border: 1px solid #ccc;             /* حواف خفيفة بلون رمادي فاتح */
+    border-radius: 15px;                
+    border: 1px solid #ccc;             
     padding: 10px 20px;
 }
 
 QPushButton:hover {
-    background-color: #003366;         /* أزرق غامق */
+    background-color: #003366;         
     color: white;
-    border: 1px solid #003366;         /* الحواف تصير بنفس لون الخلفية عند التمرير */
+    border: 1px solid #003366;       
 }
-
 
 </string>
          </property>
@@ -1683,17 +1692,16 @@ QPushButton:hover {
           <string notr="true">QPushButton {
     background-color: white;
     color: black;
-    border-radius: 15px;                /* أطراف منحنية */
-    border: 1px solid #ccc;             /* حواف خفيفة بلون رمادي فاتح */
+    border-radius: 15px;                
+    border: 1px solid #ccc;             
     padding: 10px 20px;
 }
 
 QPushButton:hover {
-    background-color: #003366;         /* أزرق غامق */
+    background-color: #003366;         
     color: white;
-    border: 1px solid #003366;         /* الحواف تصير بنفس لون الخلفية عند التمرير */
+    border: 1px solid #003366;       
 }
-
 
 </string>
          </property>
@@ -1723,15 +1731,15 @@ QPushButton:hover {
           <string notr="true">QPushButton {
     background-color: white;
     color: black;
-    border-radius: 15px;                /* أطراف منحنية */
-    border: 1px solid #ccc;             /* حواف خفيفة بلون رمادي فاتح */
+    border-radius: 15px;                
+    border: 1px solid #ccc;             
     padding: 10px 20px;
 }
 
 QPushButton:hover {
-    background-color: #003366;         /* أزرق غامق */
+    background-color: #003366;         
     color: white;
-    border: 1px solid #003366;         /* الحواف تصير بنفس لون الخلفية عند التمرير */
+    border: 1px solid #003366;       
 }
 
 </string>
