@@ -386,7 +386,7 @@ class CompanySignup(QDialog):
 class ResetPasswordDialog(QDialog):
     def __init__(self):
         super().__init__()
-        loadUi(os.path.join(os.path.dirname(__file__), "reset_password_wendow.ui"), self)
+        loadUi(os.path.join(os.path.dirname(__file__), "reset_password_window.ui"), self)
 
         self.reset_tab_widget.tabBar().setVisible(False)
 
